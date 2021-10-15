@@ -9,7 +9,15 @@
         <servlet-name>TodoServlet</servlet-name>
         <servlet-class>ru.job4j.todo.controller.TodoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TodoUpServlet</servlet-name>
+        <servlet-class>ru.job4j.todo.controller.TodoUpServlet</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>TodoUpServlet</servlet-name>
+        <url-pattern>/itemUp</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TodoServlet</servlet-name>
         <url-pattern>/items</url-pattern>

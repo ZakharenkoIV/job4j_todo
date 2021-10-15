@@ -1,12 +1,12 @@
-package ru.job4j.todo.model.dao.impl;
+package ru.job4j.todo.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import ru.job4j.todo.dao.ItemDAO;
 import ru.job4j.todo.model.Item;
-import ru.job4j.todo.model.dao.ItemDAO;
 
 import java.util.List;
 
@@ -15,6 +15,9 @@ public class HbnItemDAO implements ItemDAO, AutoCloseable {
             .configure().build();
     private final SessionFactory sf = new MetadataSources(registry)
             .buildMetadata().buildSessionFactory();
+
+    private HbnItemDAO() {
+    }
 
     @Override
     public Item createItem(String description) {
@@ -74,5 +77,14 @@ public class HbnItemDAO implements ItemDAO, AutoCloseable {
     @Override
     public void close() {
         StandardServiceRegistryBuilder.destroy(registry);
+    }
+
+    public static HbnItemDAO getInstance() {
+        return SingleHbnItemDAO.INSTANCE;
+    }
+
+    private static class SingleHbnItemDAO {
+        public static final HbnItemDAO INSTANCE = new HbnItemDAO();
+
     }
 }

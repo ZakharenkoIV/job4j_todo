@@ -82,7 +82,7 @@ function saveItem() {
 function updateItem(id) {
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8080/todo/items',
+        url: 'http://localhost:8080/todo/itemUp',
         data: JSON.stringify({
             id: id,
             done: document.getElementById(id).checked
