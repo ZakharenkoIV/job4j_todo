@@ -71,6 +71,7 @@ function saveItem() {
         }),
         dataType: 'json'
     }).done(function () {
+        $("#textarea1").val("");
         deleteBodyTable();
         loadAllItems();
     }).fail(function (err) {
