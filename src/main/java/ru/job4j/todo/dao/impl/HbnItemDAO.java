@@ -39,9 +39,7 @@ public class HbnItemDAO implements ItemDAO, AutoCloseable {
     @Override
     public boolean updateItem(Item item) {
         return this.tx(session -> {
-            int modifiedLines = session.createQuery(
-                    "update Item set description = :description, done = :done where id = :id")
-                    .setParameter("description", item.getDescription())
+            int modifiedLines = session.createQuery("update Item set done = :done where id = :id")
                     .setParameter("done", item.isDone())
                     .setParameter("id", item.getId())
                     .executeUpdate();

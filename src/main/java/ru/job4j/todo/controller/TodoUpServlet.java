@@ -11,11 +11,8 @@ public class TodoUpServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        HbnItemDAO db = HbnItemDAO.getInstance();
         Item frontItem = GSON.fromJson(req.getReader(), Item.class);
-        Item item = db.getItem(frontItem.getId());
-        item.setDone(frontItem.isDone());
-        db.updateItem(item);
-        send(resp, item);
+        HbnItemDAO.getInstance().updateItem(frontItem);
+        send(resp, frontItem);
     }
 }
