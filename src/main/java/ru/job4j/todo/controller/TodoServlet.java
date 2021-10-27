@@ -1,6 +1,6 @@
 package ru.job4j.todo.controller;
 
-import ru.job4j.todo.dao.impl.HbnItemDAO;
+import ru.job4j.todo.dao.impl.hibernate.ImplItemDAO;
 import ru.job4j.todo.model.Item;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,13 +11,14 @@ public class TodoServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        send(resp, HbnItemDAO.getInstance().getAllItems());
+        send(resp, ImplItemDAO.getInstance().getAllItems());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Item item = GSON.fromJson(req.getReader(), Item.class);
-        Item item1 = HbnItemDAO.getInstance().createItem(item.getDescription());
+        Item item1 = ImplItemDAO.getInstance()
+                .createItem(item.getDescription(), (int) req.getSession().getAttribute("userId"));
         send(resp, item1);
     }
 }

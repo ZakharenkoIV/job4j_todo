@@ -27,10 +27,37 @@
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+
 <script src="<c:url value="/script.js"/>"></script>
+<script> getUserRoleIdAndName() </script>
 <script> loadAllItems() </script>
 
 <div class="container">
+    <header>
+        <div class="nav justify-content-end" id="topNav">
+            <ul class="nav nav-pills">
+                <c:choose>
+                    <c:when test="${sessionScope.name==null}">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/auth">Войти</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/reg">Регистрация</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item">
+                            <a class="nav-link"><c:out value="${sessionScope.name}"/></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/exit">|  Выйти</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </div>
+    </header>
     <div class="form-group">
         <label for="textarea1"> </label>
         <textarea placeholder="Опишите детали нового задания" class="form-control" id="textarea1" rows="3"></textarea>
@@ -48,6 +75,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">описание</th>
+                <th scope="col">автор</th>
                 <th scope="col">выполнено</th>
             </tr>
             </thead>

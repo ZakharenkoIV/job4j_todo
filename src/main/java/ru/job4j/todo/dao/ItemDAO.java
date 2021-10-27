@@ -5,7 +5,7 @@ import ru.job4j.todo.model.Item;
 import java.util.List;
 
 public interface ItemDAO {
-    Item createItem(String description);
+    Item createItem(String description, int userId);
 
     Item getItem(int id);
 

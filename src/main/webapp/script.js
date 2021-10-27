@@ -1,3 +1,6 @@
+let userRoleId;
+let userName;
+
 function loadAllItems() {
     $.ajax({
         type: 'GET',
@@ -10,6 +13,21 @@ function loadAllItems() {
         if (!showAllTableLines()) {
             hideMarkedTableLines();
         }
+    }).fail(function (err) {
+            console.log(err);
+        }
+    );
+
+}
+
+function getUserRoleIdAndName() {
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/todo/userInfo',
+        dataType: 'json'
+    }).done(function (objects) {
+        userRoleId = objects[0]
+        userName = objects[1]
     }).fail(function (err) {
             console.log(err);
         }
@@ -28,13 +46,19 @@ function selectAllItems() {
 function addNewTableLine(item) {
     const numberRow = document.getElementById("table").rows.length - 1;
     document.getElementById("table").insertRow(-1).innerHTML = '<th scope="row">'
-        + numberRow + '</th><td>' + item.description + '</td>'
+        + numberRow + '</th><td>' + item.description + '</td><td>' + item.user.name + '</td>'
         + '<td>'
         + '<div class="form-check"><input class="form-check-input" name="line" onclick=updateItem(' + item.id + ') type="checkbox"'
         + ' id=' + item.id + '><label class="form-check-label" for="flexCheckDefault"></label></div>'
         + '</td>';
+    const checkbox = document.getElementById(String(item.id));
     if (item.done === true) {
-        document.getElementById(String(item.id)).setAttribute('checked', 'ok')
+        checkbox.setAttribute('checked', 'true');
+    }
+    if (item.user.role.id !== userRoleId || item.user.name !== userName) {
+        checkbox.setAttribute("disabled", "disabled")
+        console.log(item.user.role.id + " = " + userRoleId)
+        console.log(item.user.name + " = " + userName)
     }
 }
 
