@@ -18,6 +18,10 @@ public class Model {
     @Column(unique = true)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "mark_id")
+    private Mark mark;
+
     public Model() {
     }
 

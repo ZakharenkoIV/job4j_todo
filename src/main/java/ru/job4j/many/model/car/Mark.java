@@ -20,7 +20,7 @@ public class Mark {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "mark")
     private final List<Model> models = new ArrayList<>();
 
     public Mark() {
