@@ -9,7 +9,15 @@
         <filter-name>TableEntryFilter</filter-name>
         <filter-class>ru.job4j.todo.filter.TableEntryFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>TableFilter</filter-name>
+        <filter-class>ru.job4j.todo.filter.TableFilter</filter-class>
+    </filter>
 
+    <filter-mapping>
+        <filter-name>TableFilter</filter-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>TableEntryFilter</filter-name>
         <servlet-name>TodoServlet</servlet-name>
@@ -35,7 +43,7 @@
         <servlet-name>UserInfoServlet</servlet-name>
         <servlet-class>ru.job4j.todo.controller.UserInfoServlet</servlet-class>
     </servlet>
-   <servlet>
+    <servlet>
         <servlet-name>ExitServlet</servlet-name>
         <servlet-class>ru.job4j.todo.controller.ExitServlet</servlet-class>
     </servlet>

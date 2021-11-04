@@ -20,6 +20,7 @@
         <mapping class="ru.job4j.todo.model.Item"/>
         <mapping class="ru.job4j.todo.model.Role"/>
         <mapping class="ru.job4j.todo.model.User"/>
+        <mapping class="ru.job4j.todo.model.Category"/>
         <mapping class="ru.job4j.many.model.car.Model"/>
         <mapping class="ru.job4j.many.model.car.Mark"/>
         <mapping class="ru.job4j.many.model.book.Author"/>

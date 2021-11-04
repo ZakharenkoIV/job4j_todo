@@ -73,6 +73,11 @@
             <version>3.5.13</version>
             <scope>test</scope>
         </dependency> <!--mockito-core 3.5.13-->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+        </dependency>
     </dependencies>
 
     <build>

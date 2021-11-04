@@ -58,6 +58,16 @@
             </ul>
         </div>
     </header>
+    <div class="form-group row">
+        <label class="col-form-label col-sm-3" for="cIds" style="font-weight: 900">Темы</label>
+        <div class="col-sm-5">
+            <select class="form-control" name="cIds[]" id="cIds" multiple>
+                <c:forEach items="${allCategories}" var="category">
+                    <option value='<c:out value="${category.id}"/>'>${category.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
     <div class="form-group">
         <label for="textarea1"> </label>
         <textarea placeholder="Опишите детали нового задания" class="form-control" id="textarea1" rows="3"></textarea>

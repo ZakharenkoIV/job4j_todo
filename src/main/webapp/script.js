@@ -91,7 +91,8 @@ function saveItem() {
         type: 'POST',
         url: 'http://localhost:8080/todo/items',
         data: JSON.stringify({
-            description: $("#textarea1").val()
+            description: $("#textarea1").val(),
+            categories: $("#cIds").val()
         }),
         dataType: 'json'
     }).done(function () {

@@ -4,6 +4,8 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "items")
@@ -25,12 +27,26 @@ public class Item {
     @JoinColumn(name = "user_Id")
     private User user;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private final List<Category> categories = new ArrayList<>();
+
     public Item() {
     }
 
-    public Item(String description, int userId) {
+    public Item(String description, int userId, int[] categories) {
         this.description = description;
         this.user = User.of(userId);
+        for (int key : categories) {
+            this.categories.add(Category.of(key));
+        }
+    }
+
+    public void addCategory(Category category) {
+        categories.add(category);
+    }
+
+    public List<Category> getCategories() {
+        return categories;
     }
 
     public User getUser() {

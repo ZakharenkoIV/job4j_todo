@@ -1,6 +1,7 @@
 package ru.job4j.todo.dao.impl.hibernate;
 
 import ru.job4j.todo.dao.ItemDAO;
+import ru.job4j.todo.model.Category;
 import ru.job4j.todo.model.Item;
 
 import java.util.List;
@@ -11,9 +12,9 @@ public class ImplItemDAO extends BaseImplHbn implements ItemDAO {
     }
 
     @Override
-    public Item createItem(String description, int userId) {
+    public Item createItem(String description, int userId, int[] categories) {
         return getItem(this.transactionWrapper(
-                session -> (Integer) session.save(new Item(description, userId))));
+                session -> (Integer) session.save(new Item(description, userId, categories))));
     }
 
     @Override
@@ -43,6 +44,11 @@ public class ImplItemDAO extends BaseImplHbn implements ItemDAO {
             session.delete(session.get(Item.class, id));
             return getItem(id) == null;
         });
+    }
+
+    public List<Category> selectAllCategories() {
+        return this.transactionWrapper(session -> session.createQuery(
+                "select c from Category c", Category.class).list());
     }
 
     public static ImplItemDAO getInstance() {
