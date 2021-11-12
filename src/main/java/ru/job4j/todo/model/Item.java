@@ -3,8 +3,8 @@ package ru.job4j.todo.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,8 +18,9 @@ public class Item {
     @Column(unique = true)
     private String description;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(unique = true)
-    private final Timestamp created = new Timestamp(System.currentTimeMillis());
+    private final Date created = new Date(System.currentTimeMillis());
 
     private boolean done = false;
 
@@ -62,7 +63,7 @@ public class Item {
         this.description = description;
     }
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return created;
     }
 
