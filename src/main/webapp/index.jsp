@@ -85,6 +85,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">описание</th>
+                <th scope="col">тема</th>
                 <th scope="col">автор</th>
                 <th scope="col">выполнено</th>
             </tr>

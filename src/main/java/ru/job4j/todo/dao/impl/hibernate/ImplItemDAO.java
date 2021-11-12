@@ -13,18 +13,35 @@ public class ImplItemDAO extends BaseImplHbn implements ItemDAO {
 
     @Override
     public Item createItem(String description, int userId, int[] categories) {
-        return getItem(this.transactionWrapper(
-                session -> (Integer) session.save(new Item(description, userId, categories))));
+        Item item = new Item();
+        item.setDescription(description);
+        item.setUser(ImplUserDAO.getInstance().getUserById(userId));
+        if (categories.length == 0) {
+            item.addCategory(this.getCategoryById(4));
+        } else {
+            for (int key : categories) {
+                item.addCategory(this.getCategoryById(key));
+            }
+        }
+        return getItem(this.transactionWrapper(session -> (Integer) session.save(item)));
     }
 
     @Override
     public Item getItem(int id) {
-        return this.transactionWrapper(session -> session.get(Item.class, id));
+        return this.transactionWrapper(session -> session.createQuery(
+                "select distinct i "
+                        + "from Item i "
+                        + "left join fetch i.categories c "
+                        + "where i.id in :id ", Item.class)
+                .setParameter("id", id)
+                .uniqueResult());
     }
 
     @Override
     public List<Item> getAllItems() {
-        return this.transactionWrapper(session -> session.createQuery("from Item").list());
+        return this.transactionWrapper(session -> session.createQuery(
+                "select distinct i from Item i left join fetch i.categories")
+                .list());
     }
 
     @Override
@@ -44,6 +61,10 @@ public class ImplItemDAO extends BaseImplHbn implements ItemDAO {
             session.delete(session.get(Item.class, id));
             return getItem(id) == null;
         });
+    }
+
+    public Category getCategoryById(int id) {
+        return this.transactionWrapper(session -> session.get(Category.class, id));
     }
 
     public List<Category> selectAllCategories() {

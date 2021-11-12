@@ -28,21 +28,6 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    public User() {
-    }
-
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    public static User of(int userId) {
-        User user = new User();
-        user.setId(userId);
-        return user;
-    }
-
     public int getId() {
         return id;
     }

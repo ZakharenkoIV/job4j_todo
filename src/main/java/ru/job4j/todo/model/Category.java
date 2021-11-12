@@ -16,15 +16,6 @@ public class Category {
     @Column(unique = true)
     private String name;
 
-    public Category() {
-    }
-
-    public static Category of(int key) {
-        Category category = new Category();
-        category.setId(key);
-        return category;
-    }
-
     public int getId() {
         return id;
     }

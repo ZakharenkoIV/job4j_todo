@@ -27,19 +27,8 @@ public class Item {
     @JoinColumn(name = "user_Id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private final List<Category> categories = new ArrayList<>();
-
-    public Item() {
-    }
-
-    public Item(String description, int userId, int[] categories) {
-        this.description = description;
-        this.user = User.of(userId);
-        for (int key : categories) {
-            this.categories.add(Category.of(key));
-        }
-    }
 
     public void addCategory(Category category) {
         categories.add(category);

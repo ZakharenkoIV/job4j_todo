@@ -45,8 +45,11 @@ function selectAllItems() {
 
 function addNewTableLine(item) {
     const numberRow = document.getElementById("table").rows.length - 1;
+    const array = [];
+    item.categories.forEach(category => array.push(category.name));
+    let itemCategory = array.join(", ");
     document.getElementById("table").insertRow(-1).innerHTML = '<th scope="row">'
-        + numberRow + '</th><td>' + item.description + '</td><td>' + item.user.name + '</td>'
+        + numberRow + '</th><td>' + item.description + '</td><td>' + itemCategory + '</td><td>' + item.user.name + '</td>'
         + '<td>'
         + '<div class="form-check"><input class="form-check-input" name="line" onclick=updateItem(' + item.id + ') type="checkbox"'
         + ' id=' + item.id + '><label class="form-check-label" for="flexCheckDefault"></label></div>'
@@ -57,8 +60,6 @@ function addNewTableLine(item) {
     }
     if (item.user.role.id !== userRoleId || item.user.name !== userName) {
         checkbox.setAttribute("disabled", "disabled")
-        console.log(item.user.role.id + " = " + userRoleId)
-        console.log(item.user.name + " = " + userName)
     }
 }
 
